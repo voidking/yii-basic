@@ -100,5 +100,16 @@ class ProjectController extends Controller
             echo json_encode($result,JSON_UNESCAPED_UNICODE);
         }
     }
+
+    public function actionFind($id){
+        $project = new Project();
+        $item = $project->find()->where(['id'=>$id])->asArray()->one();
+        $result = array(
+            'code'=> '0',
+            'ext'=> 'success',
+            'obj'=> $item
+        );
+        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+    }
 }
 
