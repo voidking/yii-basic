@@ -42,6 +42,11 @@ http://localhost/basic/web/site/template
 
 6、删除：http://localhost/basic/web/project/delete?id=1   
 
+## 验证码
+获取验证码：http://localhost/basic/web/util/captcha/getcode   
+
+验证验证码：http://localhost/basic/web/util/captcha/check?code=f7nh
+
 
 
 
