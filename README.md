@@ -47,6 +47,8 @@ http://localhost/basic/web/site/template
 
 验证验证码：http://localhost/basic/web/util/captcha/check?code=f7nh
 
+验证码测试：http://localhost/basic/web/util/captcha/index
+
 
 
 

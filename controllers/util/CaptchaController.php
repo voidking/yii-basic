@@ -11,7 +11,8 @@ class CaptchaController extends Controller
 {
     public function actionIndex()
     {
-        echo 'captcha index function';
+        //echo 'captcha index function';
+        return $this->render('captcha.tpl', ['title' => 'CatpchaTest']);
     }
 
     public function actionGetcode(){
