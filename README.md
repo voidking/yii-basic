@@ -50,9 +50,11 @@ http://localhost/basic/web/site/template
 验证码测试：http://localhost/basic/web/util/captcha/index
 
 # 线上部署
+
+## 404
 线上部署时，发现除了首页，其他页面都是404。此时，就需要修改apache或者nginx的配置。   
 
-## 推荐使用的 Apache 配置
+### 推荐使用的 Apache 配置
 在 Apache 的 httpd.conf 文件或在一个虚拟主机配置文件中使用如下配置。 注意，你应该将 path/to/basic/web 替换为实际的 basic/web 目录。  
 
 设置文档根目录为 "basic/web"
@@ -70,7 +72,7 @@ http://localhost/basic/web/site/template
 </Directory>
 ```
 
-## 推荐使用的 Nginx 配置
+### 推荐使用的 Nginx 配置
 
 为了使用 Nginx，你应该已经将 PHP 安装为 FPM SAPI 了。 你可以使用如下 Nginx 配置，将 path/to/basic/web 替换为实际的 basic/web 目录， mysite.local 替换为实际的主机名以提供服务。
 ```
@@ -116,6 +118,42 @@ server {
 使用该配置时，你还应该在 php.ini 文件中设置 cgi.fix_pathinfo=0 ， 能避免掉很多不必要的 stat() 系统调用。  
 
 还要注意当运行一个 HTTPS 服务器时，需要添加 fastcgi_param HTTPS on; 一行， 这样 Yii 才能正确地判断连接是否安全。  
+
+## Database Exception
+使用数据库时，报错：
+```
+Database Exception – yii\db\Exception
+
+SQLSTATE[HY000] [2002] No such file or directory
+
+Caused by: PDOException
+
+SQLSTATE[HY000] [2002] No such file or directory
+
+in /var/www/html/basic/vendor/yiisoft/yii2/db/Connection.php at line 630
+```
+
+这个是由于默认将PHP.ini中的以下三项留空导致的，YII2所需的PDO组建无法找到mysql.sock(或mysqld.sock)文件地址。
+```
+mysql.default_socket = 
+pdo_mysql.default_socket =
+mysqli.default_socket =
+```
+
+解决办法：
+1、找到sock文件位置
+`ps aux | grep mysql`
+
+2、编辑php.ini（默认位置/etc/php.ini）
+
+```
+mysql.default_socket = /usr/local/mysql/data/mysql.sock
+pdo_mysql.default_socket = /usr/local/mysql/data/mysql.sock
+mysqli.default_socket = /usr/local/mysql/data/mysql.sock
+```
+
+3、重启apache
+`systemctl restart httpd`
 
 # 书签
 [安装 Yii](http://www.yiichina.com/doc/guide/2.0/start-installation)
