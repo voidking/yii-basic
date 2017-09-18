@@ -8,7 +8,7 @@
 `git clone https://github.com/voidking/yii-basic.git basic`
 
 ## 数据库
-利用navicat等工具连接到本地mysql数据库，创建数据库basic，在数据库中创建表bas_project(int id, varchar title, varchar content)。注意，编码格式选择utf8。
+利用navicat等工具连接到本地mysql数据库，创建数据库basic，字符集选择`utf8 -- UTF-8 Unicode`，排序规则选择`utf8_general_ci`。然后导入basic.sql文件。
 
 # 测试url
 ## 安装成功
